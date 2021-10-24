@@ -1,0 +1,25 @@
+{
+  "name": "21-22-bot",
+  "version": "1.0.0",
+  "description": "the bot for 21-22",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkuzmick/21-22-bot.git"
+  },
+  "author": "Marlon Kuzmick",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mkuzmick/21-22-bot/issues"
+  },
+  "homepage": "https://github.com/mkuzmick/21-22-bot#readme",
+  "dependencies": {
+    "@slack/bolt": "^3.7.0",
+    "airtable": "^0.11.1",
+    "dotenv": "^10.0.0"
+  }
+}
