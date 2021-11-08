@@ -2,6 +2,8 @@ const { App } = require('@slack/bolt');
 const messageHandler = require('./tools/message-handler.js');
 const eventHandler = require('./tools/event-handler.js');
 const slashHandler = require('./tools/slash-handler.js')
+const actionTools = require('./tools/action-tools.js')
+
 require('dotenv').config()
 
 const app = new App({
@@ -26,12 +28,7 @@ app.action('approve_button', async ({ ack, say }) => {
   await say('Request approved 👍');
 });
 
-app.action(/^log/, async ({ ack, say, payload }) => {
-  await ack();
-  // Update the message to reflect the action
-  console.log(`got press from button:\n${JSON.stringify(payload, null, 4)}`);
-  await say('got a button press');
-});
+app.action(actionTools.logRe, actionTools.handleLog);
 
 (async () => {
     // Start your app

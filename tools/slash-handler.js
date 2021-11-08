@@ -1,10 +1,10 @@
-const airtableUtilities = require('./airtable-utilities')
+const airtableTools = require('./airtable-tools')
 const randomLogger = require('./data/random-logger.js')
 
 exports.howto = async ({ command, ack, client }) => {
     // Acknowledge command request
     await ack();
-    const airtableResult = await airtableUtilities.findByValue({
+    const airtableResult = await airtableTools.findByValue({
         baseId: process.env.AIRTABLE_BOT_BASE_ID,
         table: "HowTos",
         maxRecords: 1,
@@ -44,18 +44,24 @@ exports.log = async ({ command, ack, client }) => {
     // Acknowledge command request
     await ack();
     console.log(`heard log slash:\n${JSON.stringify(command, null, 4)}`)
-    const terms = command.text.split(" ")
-    const elements = []
-    for (let index = 0; index < terms.length; index++) {
+    let terms = command.text.split(" ");
+
+    // let uniqueChars = chars.filter((c, index) => {
+    //     return chars.indexOf(c) === index;
+    // });
+
+    let uniqueTerms = [...new Set(terms)];
+    var elements = []
+    for (let index = 0; index < uniqueTerms.length; index++) {
         elements.push({
             "type": "button",
 					"text": {
 						"type": "plain_text",
-						"text": terms[index],
+						"text": uniqueTerms[index],
 						"emoji": true
 					},
-					"value": `log_${terms[index]}`,
-					"action_id": `log_action_${terms[index]}`
+					"value": `log_${uniqueTerms[index]}`,
+					"action_id": `log_action_${uniqueTerms[index]}`
         })   
     }
     const blocks = [
